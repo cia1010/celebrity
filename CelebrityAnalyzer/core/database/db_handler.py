@@ -9,8 +9,16 @@ class DBHandler:
     def save_celebrity(self, data):
         df = pd.DataFrame(data)
         if os.path.exists(self.path):
-            old = pd.read_csv(self.path)
-            df = pd.concat([old, df], ignore_index=True).drop_duplicates(subset=['name'])
+            try:
+                old = pd.read_csv(self.path)
+                # 若旧文件为空则直接覆盖
+                if old.empty or len(old.columns) == 0:
+                    df.to_csv(self.path, index=False)
+                    return
+                df = pd.concat([old, df], ignore_index=True).drop_duplicates(subset=['name'])
+            except pd.errors.EmptyDataError:
+                df.to_csv(self.path, index=False)
+                return
         df.to_csv(self.path, index=False)
 
     def get_all_data(self):
