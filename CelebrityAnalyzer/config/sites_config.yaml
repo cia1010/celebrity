@@ -1,0 +1,15 @@
+# 目标网站配置示例
+forbes:
+  url: "https://www.forbes.com/celebrities/"
+  fields:
+    - name
+    - net_worth
+    - country
+    - profession
+wikipedia:
+  url: "https://en.wikipedia.org/wiki/List_of_people_by_net_worth"
+  fields:
+    - name
+    - net_worth
+    - country
+    - profession
